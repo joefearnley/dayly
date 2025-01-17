@@ -39,3 +39,35 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+*.egg-info
+dist/
+build/
+
+# Environments
+.env
+venv/
+env/
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+media/
+static/
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Test coverage
+.coverage
+htmlcov/
+
+*.sqlite3
