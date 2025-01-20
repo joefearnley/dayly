@@ -10,8 +10,13 @@
     {% endblock %}
 </head>
 <body>
+    {% include '_navbar.html' %}
+
+    <div>
     {% block content %}
     {% endblock %}
+    </div>
+
     {% block scripts %}
     {% vite 'js/main.js' %}
     {% endblock %}
