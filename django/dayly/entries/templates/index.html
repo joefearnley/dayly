@@ -3,7 +3,7 @@
 {% block title %}Entries{% endblock %}
 
 {% block content %}
-    <h1>Latest Entries</h1>
+    <h1 class="text-3xl font-bold underline">Latest Entries</h1>
     {% for entry in entries %}
         <p>{{ entry.title }}</p>
         <p>{{ entry.body }}</p>
