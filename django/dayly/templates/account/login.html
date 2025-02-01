@@ -33,9 +33,11 @@
             </div>
             {% endif %}
             {% if field.errors %}
-                <div class="errorlist">
-                    {{ field.errors }}
-                </div>
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li class="text-sm text-red-700">{{ error }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
             {% endfor %}
 
