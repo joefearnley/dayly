@@ -5,7 +5,6 @@ from .forms import AccountUpdateForm
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-    model = User
     form_class = AccountUpdateForm
     fields = ['username', 'first_name', 'last_name', 'email']
     template_name = 'accounts/edit_account.html'
