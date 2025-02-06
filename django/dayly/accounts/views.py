@@ -6,7 +6,6 @@ from .forms import AccountUpdateForm
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     form_class = AccountUpdateForm
-    fields = ['username', 'first_name', 'last_name', 'email']
     template_name = 'accounts/edit_account.html'
     success_url = reverse_lazy('account-edit')
 
