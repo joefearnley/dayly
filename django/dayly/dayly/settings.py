@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-okmaoseemvg5f%^47lw=)7weuud#5f=$(@n6wgrd_8+pp__-+5
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
