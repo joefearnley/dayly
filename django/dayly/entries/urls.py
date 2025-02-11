@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path
-from .views import IndexView, EditView
+from .views import IndexView, EntryCreateView
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
-    path('/edit', EditView.as_view(), name='index'),
+    path('', IndexView.as_view(), name='entries_index'),
+    path('/create', EntryCreateView.as_view(), name='create_entry'),
+    path('/edit', EntryCreateView.as_view(), name='edit_entry'),
 ]

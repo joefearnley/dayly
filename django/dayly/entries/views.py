@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 from .models import Entry
 
 
@@ -9,3 +9,15 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['entries'] = Entry.objects.all()[:5]
         return context
+
+
+class EntryCreateView(CreateView):
+    model = Entry
+    fields = ['title', 'content']
+    template_name = 'edit_entry.html'
+
+
+class EntryUpdateView(UpdateView):
+    model = Entry
+    fields = ['title', 'content']
+    template_name = 'edit_entry.html'
