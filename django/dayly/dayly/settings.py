@@ -45,7 +45,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'dayly.urls'
 
 CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000',
     'http://127.0.0.1:8000',
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
+    'http://[::1]:5173',
 ]
 
 TEMPLATES = [
