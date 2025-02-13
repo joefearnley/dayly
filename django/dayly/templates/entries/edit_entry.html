@@ -36,7 +36,7 @@
             <div>
                 <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
                 <div class="relative">
-                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" value="{{ field.value }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
+                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name|default_if_none:"" }} }}" value="{{ field.value }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
                 </div>
             </div>
             {% if field.errors %}

@@ -13,11 +13,11 @@ class IndexView(TemplateView):
 
 class EntryCreateView(CreateView):
     model = Entry
-    fields = ['title', 'content']
-    template_name = 'edit_entry.html'
+    fields = ['title', 'body']
+    template_name = 'entries/edit_entry.html'
 
 
 class EntryUpdateView(UpdateView):
     model = Entry
     fields = ['title', 'content']
-    template_name = 'edit_entry.html'
+    template_name = 'entries/edit_entry.html'
