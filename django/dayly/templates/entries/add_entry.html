@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load vite %}
+
 {% block title %}Dayly Home{% endblock %}
 
 {% block content %}
@@ -44,15 +46,15 @@
                 </div>
                 {% else %}
                 <div>
-                    <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
+                    <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
                     <div class="relative">
-                        <textarea
-                            id="body"
-                            name="body"
+                        <div
+                            id="{{ field.id_for_label }}"
+                            name="{{ field.name }}"
                             class="mt-2 w-full rounded-lg border-gray-200 align-top shadow-xs sm:text-sm"
                             rows="4"
                             placeholder="Entry what you think..."
-                        ></textarea>
+                        ></div>
                     </div>
                 </div>
                 {% endif %}
@@ -72,4 +74,8 @@
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+{% vite 'js/add-entry.js' %}
 {% endblock %}
