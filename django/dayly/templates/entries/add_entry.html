@@ -37,27 +37,18 @@
         <form action="{% url 'account-edit' %}" method="post" class="mb-0 mt-8 max-w-md space-y-4">
             {% csrf_token %}
             {% for field in form %}
-                {% if field.name == 'title' %}
-                <div>
-                    <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
-                    <div class="relative">
-                        <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" value="{{ field.value|default_if_none:"" }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
-                    </div>
-                </div>
-                {% else %}
                 <div>
                     <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
-                    <div class="relative">
-                        <div
+                    <div class="overflow-hidden">
+                        <textarea
                             id="{{ field.id_for_label }}"
                             name="{{ field.name }}"
-                            class="mt-2 w-full rounded-lg border-gray-200 align-top shadow-xs sm:text-sm"
-                            rows="4"
-                            placeholder="Entry what you think..."
-                        ></div>
+                            class="w-full resize-none rounded-lg border border-x-0 border-t-0 border-gray-200 p-4 align-top sm:text-sm shadow-sm"
+                            rows="10"
+                            placeholder="What's on your mind?"
+                        ></textarea>
                     </div>
                 </div>
-                {% endif %}
                 {% if field.errors %}
                     <ul class="errorlist">
                         {% for error in field.errors %}
@@ -68,7 +59,7 @@
             {% endfor %}
             <div class="flex items-center justify-between">
                 <button type="submit" class="inline-block rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white">
-                    Save
+                    Add Entry
                 </button>
             </div>
         </form>
