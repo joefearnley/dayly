@@ -37,6 +37,14 @@
         <form action="{% url 'account-edit' %}" method="post" class="mb-0 mt-8 max-w-md space-y-4">
             {% csrf_token %}
             {% for field in form %}
+                {% if field.name == 'date_published' %}
+                <div>
+                    <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
+                    <div class="relative">
+                        <input type="date" name="{{ field.name }}" value="" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
+                    </div>
+                </div>
+                {% else %}
                 <div>
                     <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
                     <div class="overflow-hidden">
@@ -44,11 +52,12 @@
                             id="{{ field.id_for_label }}"
                             name="{{ field.name }}"
                             class="w-full resize-none rounded-lg border border-x-0 border-t-0 border-gray-200 p-4 align-top sm:text-sm shadow-sm"
-                            rows="10"
+                            rows="15"
                             placeholder="What's on your mind?"
                         ></textarea>
                     </div>
                 </div>
+                {% endif %}
                 {% if field.errors %}
                     <ul class="errorlist">
                         {% for error in field.errors %}
