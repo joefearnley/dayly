@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView, CreateView, UpdateView
 from .models import Entry
+from .forms import EntryForm
 
 
 class IndexView(TemplateView):
@@ -16,6 +17,15 @@ class EntryCreateView(CreateView):
     fields = ['date_published', 'body']
     template_name = 'entries/add_entry.html'
 
+    def post(self, request, *args, **kwargs):
+        form = EntryForm(request.POST)
+
+        if form.is_valid():
+            entry = form.save()
+            entry.save()
+            return HttpResponseRedirect(reverse_lazy('entries_index'))
+
+        return render(request, 'entries/add_entry.html', {'form': form})
 
 class EntryUpdateView(UpdateView):
     model = Entry
