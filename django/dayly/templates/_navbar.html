@@ -11,6 +11,7 @@
         </div>
 
         <div class="md:flex md:items-center md:gap-12">
+            {% if user.is_authenticated %}
             <nav aria-label="Global" class="hidden md:block">
                 <ul class="flex items-center gap-6 text-sm">
                     <li>
@@ -55,6 +56,7 @@
                     </li>
                 </ul>
             </nav>
+            {% endif %}
 
             <div class="flex items-center gap-4">
                 <div class="sm:flex sm:gap-4">

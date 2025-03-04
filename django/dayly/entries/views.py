@@ -1,6 +1,9 @@
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.views.generic import TemplateView, CreateView, UpdateView
 from .models import Entry
-from .forms import EntryForm
+
 
 
 class IndexView(TemplateView):
@@ -16,16 +19,18 @@ class EntryCreateView(CreateView):
     model = Entry
     fields = ['date_published', 'body']
     template_name = 'entries/add_entry.html'
+    success_url = reverse_lazy('entries_index')
 
-    def post(self, request, *args, **kwargs):
-        form = EntryForm(request.POST)
+    def form_valid(self, form):
+        self.object = Entry.objects.create(
+            date_published=form.cleaned_data['date_published'],
+            body=form.cleaned_data['body'],
+            user=self.request.user
+        )
 
-        if form.is_valid():
-            entry = form.save()
-            entry.save()
-            return HttpResponseRedirect(reverse_lazy('entries_index'))
+        messages.success(self.request, 'Entry Added Successfully.')
 
-        return render(request, 'entries/add_entry.html', {'form': form})
+        return HttpResponseRedirect(self.get_success_url())
 
 class EntryUpdateView(UpdateView):
     model = Entry
