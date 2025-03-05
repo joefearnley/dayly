@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DetailView
 from .models import Entry
 
 
@@ -25,6 +25,7 @@ class EntryCreateView(CreateView):
         self.object = Entry.objects.create(
             date_published=form.cleaned_data['date_published'],
             body=form.cleaned_data['body'],
+            slug=form.cleaned_data['date_published'].strftime('%Y-%m-%d'),
             user=self.request.user
         )
 
@@ -36,3 +37,8 @@ class EntryUpdateView(UpdateView):
     model = Entry
     fields = ['date_published', 'body']
     template_name = 'entries/edit_entry.html'
+
+
+class EntryView(DetailView):
+    model = Entry
+    template_name = 'entries/view_entry.html'
