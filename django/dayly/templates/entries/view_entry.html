@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Dayly Home{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto">
+        <h1 class="text-2xl font-bold sm:text-3xl">
+            {{ entry.title}}
+        </h1>
+        {{ entry.body }}
+    </div>
+</div>
+{% endblock %}

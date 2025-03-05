@@ -6,11 +6,11 @@
 
 {% block content %}
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-lg">
+    <div class="mx-auto max-w-2xl">
         <h1 class="text-2xl font-bold sm:text-3xl">
             Add Entry
         </h1>
-        <form action="{% url 'create_entry' %}" method="post" class="mb-0 mt-8 max-w-md space-y-4">
+        <form action="{% url 'create_entry' %}" method="post" class="mb-0 mt-8 space-y-4">
             {% csrf_token %}
             {% for field in form %}
                 {% if field.name == 'date_published' %}
@@ -42,10 +42,13 @@
                     </ul>
                 {% endif %}
             {% endfor %}
-            <div class="flex items-center justify-between">
-                <button type="submit" class="inline-block rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white">
+            <div class="flex items-center gap-4">
+                <button type="submit" class="inline-block border border-slate-600 rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white">
                     Add Entry
                 </button>
+                <a href="{% url 'entries_index' %}" class="inline-block rounded-lg px-5 py-3 border border-slate-600 text-slate-600 hover:text-slate-700 active:text-slate-500">
+                    Cancel
+                </a>
             </div>
         </form>
     </div>
