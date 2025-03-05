@@ -11,7 +11,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 LOGIN_REDIRECT_URL = 'entries_index'
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Application definition
 
