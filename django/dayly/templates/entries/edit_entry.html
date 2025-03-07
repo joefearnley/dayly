@@ -8,27 +8,47 @@
         <h1 class="text-2xl font-bold sm:text-3xl">
             Edit Entry
         </h1>
-        <form action="{% url 'account-edit' %}" method="post" class="mb-0 mt-8 max-w-md space-y-4">
-            {% csrf_token %}
+        <form action="{% url 'edit_entry' pk=entry.pk %}" method="post" class="mb-0 mt-8 space-y-4">
+            {% csrf_token %}    
             {% for field in form %}
-            <div>
-                <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
-                <div class="relative">
-                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" value="{{ field.value|default_if_none:"" }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
+                {% if field.name == 'date_published' %}
+                    <div>
+                        <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
+                        <div class="relative">
+                            <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" value="{{ entry.date_published|date:"m/d/Y" }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
+                        </div>
+                    </div>
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li class="text-sm text-red-700">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% else %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
+                    <div class="overflow-hidden">
+                        <textarea
+                            id="{{ field.id_for_label }}"
+                            name="{{ field.name }}"
+                            class="w-full resize-none rounded-lg border border-x-0 border-t-0 border-gray-200 p-4 align-top sm:text-sm shadow-sm"
+                            rows="15"
+                            placeholder="What's on your mind?"
+                        >
+                        {{ field.value|default_if_none:"" }}
+                    </textarea>
+                    </div>
                 </div>
-            </div>
-            {% if field.errors %}
-                <ul class="errorlist">
-                    {% for error in field.errors %}
-                        <li class="text-sm text-red-700">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+                {% endif %}
             {% endfor %}
-            <div class="flex items-center justify-between">
-                <button type="submit" class="inline-block rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white">
+            <div class="flex items-center gap-4">
+                <button type="submit" class="inline-block rounded-lg border bg-slate-500 px-5 py-3 text-sm font-medium text-white">
                     Save
                 </button>
+                <a href="{% url 'entries_index' %}" class="inline-block rounded-lg px-5 py-2 border border-slate-600 text-slate-600 hover:text-slate-700 active:text-slate-500">
+                    Cancel
+                </a>
             </div>
         </form>
     </div>

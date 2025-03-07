@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.views.generic import TemplateView, CreateView, UpdateView, DetailView
+from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, DeleteView
 from .models import Entry
 
 
@@ -34,6 +34,13 @@ class EntryCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 class EntryUpdateView(UpdateView):
+    model = Entry
+    fields = ['date_published', 'body']
+    template_name = 'entries/edit_entry.html'
+    success_url = reverse_lazy('entries_index')
+
+
+class EntryDeleteView(DeleteView):
     model = Entry
     fields = ['date_published', 'body']
     template_name = 'entries/edit_entry.html'
