@@ -29,7 +29,7 @@ class EntryCreateView(CreateView):
             user=self.request.user
         )
 
-        messages.success(self.request, 'Entry Added Successfully.')
+        messages.success(self.request, 'Entry Successfully Added.')
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -44,6 +44,8 @@ class EntryDeleteView(DeleteView):
     model = Entry
     fields = ['date_published', 'body']
     template_name = 'entries/edit_entry.html'
+    success_url = reverse_lazy('entries_index')
+    success_message = 'Entry successfully deleted.'
 
 
 class EntryView(DetailView):
