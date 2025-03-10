@@ -10,7 +10,6 @@ server: {
     plugins: [
         djangoVite({
             input: [
-                "./static/js/adda-entry.js",
                 "./static/js/main.js",
                 "./static/css/tailwind.css"
             ],

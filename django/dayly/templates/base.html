@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>{% block title %}Dayly{% endblock %}</title>
     {% block stylesheets %}
-    {% vite 'css/tailwind.css' %}
     {% endblock %}
 </head>
 <body>
@@ -14,10 +13,8 @@
         {% include '_navbar.html' %}
     {% endif %}
 
-    <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-6 lg:px-8 relative">
     {% block content %}
     {% endblock %}
-    </div>
 
     {% block scripts %}
     {% vite 'js/main.js' %}
