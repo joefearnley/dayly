@@ -6,60 +6,61 @@
 {% endblock head_title %}
 {% block content %}
 
-    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-lg text-center">
-            <h1 class="text-2xl font-bold sm:text-3xl">Log In</h1>
-        </div>
+    <div class="container mt-5">
+        <div class="mw-50">
+            <div class="mx-auto text-center">
+                <h1>Log In</h1>
+            </div>
 
-        <form action="{% url 'account_login' %}" method="post" class="mx-auto mb-0 mt-8 max-w-md space-y-4">
-            {% csrf_token %}
-            {% for field in form %}
-            {% if field.field.widget.input_type == 'checkbox' %}
-            <label for="{{ field.id_for_label }}" class="flex cursor-pointer items-start gap-4">
+            <form action="{% url 'account_login' %}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                {% if field.field.widget.input_type == 'checkbox' %}
+                <label for="{{ field.id_for_label }}" class="form-label">
+                    <div>
+                        <strong class=""">{{ field.label }}</strong>
+                    </div>
+                    <div class="flex items-center">
+                        &#8203;
+                        <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="form-control" id="{{ field.id_for_label }}" />
+                    </div>
+                </label>
+                {% else %}
                 <div>
-                    <strong class="font-medium text-sm text-gray-500">{{ field.label }}</strong>
+                    <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
+                    <div class="relative">
+                        <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="form-control" placeholder="Enter {{ field.label }}" />
+                    </div>
                 </div>
-                <div class="flex items-center">
-                    &#8203;
-                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="size-4 rounded border-gray-300" id="{{ field.id_for_label }}" />
+                {% endif %}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li class="text-sm text-red-700">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="d-flex items-center justify-between">
+                    <p class="text-sm text-gray-500">
+                        No account?
+                        <a class="underline" href="{{ signup_url }}">Sign up</a>
+                    </p>
+                    <button type="submit" class="btn">
+                        Log in
+                    </button>
                 </div>
-            </label>
-            {% else %}
-            <div>
-                <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
-                <div class="relative">
-                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
-                </div>
-            </div>
-            {% endif %}
-            {% if field.errors %}
-                <ul class="errorlist">
-                    {% for error in field.errors %}
-                        <li class="text-sm text-red-700">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {% endfor %}
-
-            {% if form.non_field_errors %}
-                <ul>
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
-            <div class="flex items-center justify-between">
-                <p class="text-sm text-gray-500">
-                    No account?
-                    <a class="underline" href="{{ signup_url }}">Sign up</a>
-                </p>
-                <button type="submit" class="inline-block rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white">
-                    Log in
-                </button>
-            </div>
-        </form>
-    </div>
-
+            </form>
+        </div>
+    </div> 
     
 {% endblock content %}
