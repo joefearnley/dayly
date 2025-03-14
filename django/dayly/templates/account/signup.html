@@ -5,18 +5,18 @@
 {% endblock head_title %}
 {% block content %}
 
-<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-lg text-center">
-        <h1 class="text-2xl font-bold sm:text-3xl">Sign Up</h1>
+<div class="">
+    <div class="mx-auto  text-center">
+        <h1>Sign Up</h1>
     </div>
 
-    <form action="{% url 'account_signup' %}" method="post" class="mx-auto mb-0 mt-8 max-w-md space-y-4">
+    <form action="{% url 'account_signup' %}" method="post">
         {% csrf_token %}
         {% for field in form %}
         <div>
             <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
             <div class="relative">
-                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter {{ field.label }}" />
+                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="form-control" placeholder="Enter {{ field.label }}" />
             </div>
         </div>
         {% if field.errors %}
@@ -37,11 +37,11 @@
         {% endif %}
 
         <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-500">
+            <p>
                 Already have an account? 
                 <a class="underline" href="{{ login_url }}">Log in</a>
             </p>
-            <button type="submit" class="inline-block rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white">
+            <button type="submit" class="ibtn btn-primary">
                 Create Account
             </button>
         </div>
