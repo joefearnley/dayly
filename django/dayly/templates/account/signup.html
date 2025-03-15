@@ -5,45 +5,45 @@
 {% endblock head_title %}
 {% block content %}
 
-<div class="">
-    <div class="mx-auto  text-center">
-        <h1>Sign Up</h1>
-    </div>
+<div class="container mt-5">
+    <div class="mw-50 mx-auto">
+        <div class="mx-auto text-center">
+            <h1>Sign Up</h1>
+        </div>
 
-    <form action="{% url 'account_signup' %}" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-        <div>
-            <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
-            <div class="relative">
+        <form action="{% url 'account_signup' %}" method="post" class="mt-4">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-floating mb-3">
                 <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="form-control" placeholder="Enter {{ field.label }}" />
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             </div>
-        </div>
-        {% if field.errors %}
-            <ul class="errorlist">
-                {% for error in field.errors %}
-                    <li class="text-sm text-red-700">{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% endfor %}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li class="danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% endfor %}
 
-        {% if form.non_field_errors %}
-            <ul>
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+            {% if form.non_field_errors %}
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-        <div class="flex items-center justify-between">
-            <p>
-                Already have an account? 
-                <a class="underline" href="{{ login_url }}">Log in</a>
-            </p>
-            <button type="submit" class="ibtn btn-primary">
-                Create Account
-            </button>
-        </div>
-    </form>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">
+                    Create Account
+                </button>
+            </div>
+            <div class="mt-4">
+                Already have an account?  <a class="underline" href="{{ login_url }}">Log in</a>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock content %}
