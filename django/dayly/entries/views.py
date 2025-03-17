@@ -1,9 +1,11 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.views import View
+from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, DeleteView
 from .models import Entry
-
+import markdown
 
 
 class IndexView(TemplateView):
@@ -51,3 +53,18 @@ class EntryDeleteView(DeleteView):
 class EntryView(DetailView):
     model = Entry
     template_name = 'entries/view_entry.html'
+
+
+class EntryPreviewView(View):
+    def get(self, request, *args, **kwargs):
+        body = request.GET.get('body', '')
+        date = request.GET.get('date', '')
+
+        html = markdown.markdown(body)
+
+        response = {
+            'title': date,
+            'body': html
+        }
+
+        return JsonResponse(response)

@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'django_vite_plugin',
+    'django_extensions',
     'allauth',
     'allauth.account',
     'entries',

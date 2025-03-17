@@ -11,7 +11,6 @@ server: {
         djangoVite({
             input: [
                 "./static/js/main.js",
-                "./static/css/tailwind.css"
             ],
             pyPath: "python3"
         }),
