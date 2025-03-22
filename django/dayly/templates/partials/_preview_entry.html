@@ -1,0 +1,25 @@
+
+{% load vite %}
+
+<!-- preview modal -->
+<div class="modal fade" id="entry-preview-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="entry-preview-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="entry-preview-modal-label"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="date"></p>
+                <p id="body"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+{% vite 'js/preview-entry.js' %}
+{% endblock %}

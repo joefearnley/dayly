@@ -3,9 +3,6 @@
 {% block title %}Entries{% endblock %}
 
 {% block content %}
-
-{% include 'partials/_messages.html' %}
-
 <div class="container mt-5 latest-entries">
     <h1>Latest Entries</h1>
     {% if entries.count == 0 %}

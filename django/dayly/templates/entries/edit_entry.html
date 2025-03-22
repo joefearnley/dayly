@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Dayly Home{% endblock %}
+{% block title %}Edit Dayly Entry{% endblock %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-5">
@@ -11,7 +11,7 @@
             {% for field in form %}
                 {% if field.name == 'date_published' %}
                     <div class="form-floating mb-3">
-                        <input type="date" name="{{ field.name }}" value="{{ entry.date_published|date:"Y-m-d" }}" class="form-control" placeholder="Enter {{ field.label }}" />
+                        <input type="date" name="{{ field.name }}" id="{{ field.auto_id }}" value="{{ entry.date_published|date:"Y-m-d" }}" class="form-control" placeholder="Enter {{ field.label }}" />
                         <label for="{{ field.name }}" class="sr-only">{{ field.label }}</label>
                     </div>
                     {% if field.errors %}
@@ -54,4 +54,7 @@
         </form>
     </div>
 </div>
+
+{% include '../partials/_preview_entry.html' %}
+
 {% endblock %}
