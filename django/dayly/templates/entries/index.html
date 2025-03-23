@@ -18,7 +18,7 @@
                 <p>
                     <a href="{% url 'view_entry' slug=entry.slug %}">{{ entry.date_published|date:"m/d/Y"  }}</a>
                 </p>
-                <p>{{ entry.body }}</p>
+                <p>{{ entry.body|safe }}</p>
             </div>
         {% endfor %}
     {% endif %}

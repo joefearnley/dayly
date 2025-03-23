@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load entry_tags %}
+
 
 {% block title %}Dayly Home{% endblock %}
 
@@ -22,7 +24,7 @@
     <h1 class="text-2xl font-bold sm:text-3xl">
         {{ entry.title}}
     </h1>
-    {{ entry.body }}
+    {{ entry.body|markdown }}
 </div>
 
 <div class="modal fade" id="delete-entry-confirmation-modal" tabindex="-1" aria-labelledby="delete-entry-confirmation-modal-label" aria-hidden="true">
