@@ -1,8 +1,9 @@
+from datetime import datetime
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.views import View
-from django.http import HttpResponse, JsonResponse
+from django.http import  JsonResponse
 from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, DeleteView
 from .models import Entry
 import markdown
@@ -63,13 +64,14 @@ class EntryView(DetailView):
 
 class EntryPreviewView(View):
     def get(self, request, *args, **kwargs):
-        body = request.GET.get('body', '')
-        date = request.GET.get('date', '')
+        entry_body = request.GET.get('body', '')
+        entry_date = request.GET.get('date', '')
 
-        html = markdown.markdown(body)
+        html = markdown.markdown(entry_body)
+        title = datetime.fromisoformat(entry_date).strftime('%m/%d/%Y')
 
         response = {
-            'title': date,
+            'title': title,
             'body': html
         }
 
