@@ -4,8 +4,8 @@
 {% block title %}Dayly Home{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="">
+<div class="container mt-5">
+    <div>
         <h1>{{ entry.date_published|date:"m/d/Y" }}</h1>
         <div class="d-flex justify-content-start view-entry-actions">
             <button id="delete-entry-button" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#delete-entry-confirmation-modal">
