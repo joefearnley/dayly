@@ -114,7 +114,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DJANGO_VITE_PLUGIN = {
-    "BUILD_DIR": "staticfiles/build",
-    "BUILD_URL_PREFIX": "/" + STATIC_URL + "build",
-    "DEV_MODE": True,
+    'BUILD_DIR': STATIC_URL,
+    'BUILD_URL_PREFIX': '/' + STATIC_URL + 'build',
+    'DEV_MODE': True,
 }
