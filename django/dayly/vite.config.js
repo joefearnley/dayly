@@ -11,6 +11,7 @@ export default defineConfig({
         djangoVite({
             input: [
                 './dayly/static/js/main.js',
+                './dayly/static/js/preview-entry.js',
             ],
             pyPath: 'python3'
         }),
