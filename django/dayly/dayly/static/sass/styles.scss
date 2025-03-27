@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@import 'colors';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+
+body {
+    font-family: 'Nunito', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+a {
+    color: $link;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn {
+    --bs-btn-color: #fff;
+
+    &:hover {
+        color: #fff;
+    }
+
+    .btn-icon {
+        border: none;
+        background-color: transparent;
+
+        &:focus, &:first-child:active {
+            border: none;
+        }
+    }
+}
+
+.mw-50 {
+    max-width: 50%;
+}
+
+.mw-75 {
+    max-width: 75%;
+}
+
+.navbar-brand {
+    svg {
+        width: 2em;
+        height: 2em;
+    }
+}
+
+.latest-entries {
+    .latest-entry {
+        margin: 2rem 0 1.5rem;
+
+        p {
+            margin-bottom: 0.25rem;
+        }
+    }
+}
+
+.form-floating {
+    > textarea.form-control {
+        height: 200px;
+    }
+}
+
+#entry-preview-modal {
+    .modal-body {
+        #date {
+            color: $link;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.view-entry-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+
+    .btn {
+        color: $link;
+
+        &:focus {
+            color: $link;
+        }
+
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+}
+
+// update some modal default styling
+.modal {
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+}
