@@ -13,7 +13,9 @@ class EntryController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Index', [
+            'entries' => Entries::all()
+        ]);
     }
 
     /**
