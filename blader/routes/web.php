@@ -4,6 +4,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EntryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,3 +23,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/entries', [EntryController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('entries.index');
+
+Route::get('/entries/create', [EntryController::class, 'create'])
+    ->middleware(['auth', 'verified'])
+    ->name('entries.create');
+
+Route::post('/entries/store', [EntryController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('entries.store');
+
