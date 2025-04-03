@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Entry;
 
 class User extends Authenticatable
@@ -60,8 +61,23 @@ class User extends Authenticatable
             ->implode('');
     }
 
+    /**
+     * Get the user's entries.
+     *
+     * @return string
+     */
     public function entries(): HasMany
     {
-        return $this->hasMany(Entry::class);
+        return $this->hasMany(Entry::class)->orderBy('date_published', 'desc');
+    }
+
+    /**
+     * Get the latest user's entries.
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function lastestEntries($limit): Collection
+    {
+        return $this->entries->take($limit);
     }
 }

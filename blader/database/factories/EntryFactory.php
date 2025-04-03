@@ -16,10 +16,13 @@ class EntryFactory extends Factory
      */
     public function definition(): array
     {
+        $datePublished = now()->subDays(rand(0, 30));
+
         return [
             'user_id' => 1,
             'body' => fake()->paragraph(2),
-            'date_published' => now(),
+            'slug' => $datePublished . '-' . uniqid(),
+            'date_published' => $datePublished,
         ];
     }
 }

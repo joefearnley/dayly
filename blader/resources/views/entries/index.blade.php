@@ -1,12 +1,12 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="flex items-center justify-between">
-            <h1 class="my-2 text-4xl font-extrabold">Entries</h1>
+            <h1 class="my-2 text-3xl font-extrabold">Entries</h1>
             <a href="{{ route('entries.create') }}" class="flex items-center justify-between gap-3 px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                <span>Add entry</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block size-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block size-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
+                <span>Add entry</span>
             </a>
         </div>
 
@@ -25,6 +25,7 @@
         </div>
         @endif
 
+        <div>
         @if (empty($entries))
             <h3>No Entries Found</h3>
         @else
@@ -35,5 +36,6 @@
             </div>
             @endforeach
         @endif
+        </div>
     </div>
 </x-layouts.app>
