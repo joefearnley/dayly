@@ -37,3 +37,6 @@ Route::post('/entries/store', [EntryController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('entries.store');
 
+Route::get('/entries/{slug}', [EntryController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('entries.show');

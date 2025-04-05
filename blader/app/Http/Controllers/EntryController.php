@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEntryRequest;
 use App\Http\Requests\UpdateEntryRequest;
 use App\Models\Entry;
+use Carbon\Carbon;
 
 class EntryController extends Controller
 {
@@ -14,7 +15,7 @@ class EntryController extends Controller
     public function index()
     {
         return view('entries.index', [
-            'entries' => Entry::all()
+            'entries' => auth()->user()->entries()->latest()->paginate(10),
         ]);
     }
 
@@ -32,12 +33,13 @@ class EntryController extends Controller
     public function store(StoreEntryRequest $request)
     {
         $data = $request->validated();
+        $slug = Carbon::parse($data['date_published'])->format('Y-m-d') . '-' . uniqid();
 
         Entry::create([
             'body' => $data['body'],
             'date_published' => $data['date_published'],
             'user_id' => auth()->user()->id,
-            'slug' => now()->format('Y-m-d') . '-' . uniqid(),
+            'slug' => $slug,
         ]);
 
         return redirect()->route('entries.index')->with('success', 'Entry created successfully.');
@@ -46,9 +48,13 @@ class EntryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Entry $entry)
+    public function show($slug)
     {
-        //
+        $entry = Entry::where('slug', $slug)->firstOrFail();
+
+        return view('entries.show', [
+            'entry' => $entry,
+        ]);
     }
 
     /**

@@ -26,12 +26,13 @@
         @endif
 
         <div>
-        @if (empty($entries))
+        @if ($entries->isEmpty())
             <h3>No Entries Found</h3>
+            <p class="mt-4"><a href="{{ route('entries.create') }}">Create One</a></p>
         @else
             @foreach ($entries as $entry)
             <div class="mt-6">
-                <p><a href="/entries/{{ $entry->slug }}" class="text-red-900 font-bold">{{ $entry->date_published  }}</a></p>
+                <p><a href="{{ route('entries.show', $entry->slug) }}" class="text-red-900 font-bold">{{ $entry->date_published  }}</a></p>
                 <p>{{ $entry->body }}</p>
             </div>
             @endforeach
