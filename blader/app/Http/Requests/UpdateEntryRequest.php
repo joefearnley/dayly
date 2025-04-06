@@ -22,7 +22,8 @@ class UpdateEntryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'body' => 'required|string',
+            'date_published' => 'nullable|date',
         ];
     }
 }

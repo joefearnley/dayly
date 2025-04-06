@@ -40,3 +40,11 @@ Route::post('/entries/store', [EntryController::class, 'store'])
 Route::get('/entries/{slug}', [EntryController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('entries.show');
+
+Route::get('/entries/edit/{slug}', [EntryController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('entries.edit');
+
+Route::delete('/entries/{slug}', [EntryController::class, 'destroy'])
+    ->middleware(['auth', 'verified'])
+    ->name('entries.destroy');

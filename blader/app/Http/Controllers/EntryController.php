@@ -60,9 +60,13 @@ class EntryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Entry $entry)
+    public function edit($slug)
     {
-        //
+        $entry = Entry::where('slug', $slug)->firstOrFail();
+
+        return view('entries.edit', [
+            'entry' => $entry,
+        ]);
     }
 
     /**
@@ -70,7 +74,16 @@ class EntryController extends Controller
      */
     public function update(UpdateEntryRequest $request, Entry $entry)
     {
-        //
+        $data = $request->validated();
+        $slug = Carbon::parse($data['date_published'])->format('Y-m-d') . '-' . uniqid();
+
+        $entry->update([
+            'body' => $data['body'],
+            'date_published' => $data['date_published'],
+            'slug' => $slug,
+        ]);
+
+        return redirect()->route('entries.index')->with('success', 'Entry updated successfully.');
     }
 
     /**
