@@ -25,6 +25,11 @@ Route::middleware(['auth'])->group(function () {
 
 require __DIR__.'/auth.php';
 
+
+// Route::middleware(['auth', 'verified'])->group(function () {
+
+// });
+
 Route::get('/entries', [EntryController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('entries.index');
@@ -45,6 +50,10 @@ Route::get('/entries/edit/{slug}', [EntryController::class, 'edit'])
     ->middleware(['auth', 'verified'])
     ->name('entries.edit');
 
-Route::delete('/entries/{slug}', [EntryController::class, 'destroy'])
+Route::patch('/entries/{entry}', [EntryController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('entries.update');
+
+Route::delete('/entries/{entry}', [EntryController::class, 'destroy'])
     ->middleware(['auth', 'verified'])
     ->name('entries.destroy');

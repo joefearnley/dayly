@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Entry;
 
 class UpdateEntryRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateEntryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->id === $this->route('entry')->user->id;
     }
 
     /**

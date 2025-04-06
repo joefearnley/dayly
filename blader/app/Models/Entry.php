@@ -51,4 +51,9 @@ class Entry extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function datePublishedForForm(): ?string
+    {
+        return Carbon::parse($this->date_published)->format('Y-m-d');
+    }
 }
