@@ -53,6 +53,8 @@
                     </div>
                     <div class="flex items-center justify-end">
                         <flux:button variant="primary" type="submit" class="w-full">{{ __('Update Entry') }}</flux:button>
+
+                        <flux:button variant="primary" type="submit" class="w-full">{{ __('Update Entry') }}</flux:button>
                     </div>
                 </form>
             </div>
