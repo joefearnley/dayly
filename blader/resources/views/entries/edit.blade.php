@@ -51,11 +51,22 @@
                         {{ $entry->body }}
                     </textarea>
                     </div>
-                    <div class="flex items-center justify-end">
-                        <flux:button variant="primary" type="submit" class="w-full">{{ __('Update Entry') }}</flux:button>
-
-                        <flux:button variant="primary" type="submit" class="w-full">{{ __('Update Entry') }}</flux:button>
+                    <div class="flex justify-between">
+                        <div class="flex items-center justify-start gap-4">
+                            <flux:button variant="primary" type="submit">{{ __('Update Entry') }}</flux:button>
+                            <flux:button variant="primary" href="{{ route('entries.index') }}">{{ __('Cancel') }}</flux:button>
+                        </div>
+                        <div>
+                            <flux:button variant="primary" onclick="Livewire.dispatch('openModal', {
+                                component: 'preview-entry',
+                                arguments: {
+                                    entry: {{ $entry }} }}
+                                )">
+                                {{ __('Preview Entry') }}
+                            </flux:button>
+                        </div>
                     </div>
+                    @livewire('wire-elements-modal')
                 </form>
             </div>
         </div>
