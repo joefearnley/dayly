@@ -22,4 +22,5 @@ class EntryViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Entry.objects.filter(user=self.request.user).order_by('-date_published')
+        queryset = super(EntryViewSet, self).get_queryset()
+        return queryset.filter(user=self.request.user).order_by('-date_published')
