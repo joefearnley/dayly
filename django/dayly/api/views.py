@@ -21,6 +21,9 @@ class EntryViewSet(viewsets.ModelViewSet):
     serializer_class = EntrySerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
     def get_queryset(self):
         queryset = super(EntryViewSet, self).get_queryset()
         return queryset.filter(user=self.request.user).order_by('-date_published')
