@@ -14,10 +14,10 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        entries = Entry.objects.all().order_by('-date_published');
+        user_entries = Entry.objects.filter(user=self.request.user).order_by('-date_published');
         context['entries'] = []
     
-        for entry in entries:
+        for entry in user_entries:
             entry.body = markdown.markdown(entry.body)
             context['entries'].append(entry)
 

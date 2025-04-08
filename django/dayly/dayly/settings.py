@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'allauth',
     'allauth.account',
+    'rest_framework',
+    'rest_framework.authtoken',
     'entries',
 ]
 
