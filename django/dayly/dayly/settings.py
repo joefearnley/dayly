@@ -13,8 +13,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 LOGIN_REDIRECT_URL = 'entries_index'
 LOGOUT_REDIRECT_URL = 'home'
 
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,7 +50,9 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5173',
+    'http://127.0.0.1:5174',
     'http://localhost:5173',
+    'http://localhost:5174',
     'http://[::1]:5173',
 ]
 
@@ -100,6 +100,12 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 LANGUAGE_CODE = 'en-us'
 

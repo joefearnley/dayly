@@ -2,7 +2,9 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ username: '', password: '' });
+  const [formError, setFormError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -10,45 +12,62 @@ export default function Login() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setFormError('');
+    setIsLoading(true);
+
     try {
-      const response = await axios.post('http://localhost:8000/api/login/', {
-        username: form.email, // assuming username = email
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/token/`, {
+        username: form.username,
         password: form.password,
       });
-      console.log('JWT:', response.data.access);
-      localStorage.setItem('token', response.data.access);
+
+      localStorage.setItem('token', response.data.token);
+      setIsLoading(false);
+      window.location.href = '/dashboard';
     } catch (err) {
-      alert('Login failed');
-      console.error(err);
+      if (err.response.status === 400) {
+        setFormError('Invalid username or password');
+      }
+
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="max-w-sm mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Email"
-          className="w-full p-2 border rounded-md"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={form.password}
-          onChange={handleChange}
-          placeholder="Password"
-          className="w-full p-2 border rounded-md"
-          required
-        />
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
-          Login
-        </button>
-      </form>
+      <h2 className="py-3 font-bold text-xl text-center">Login</h2>
+      <div className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="text"
+              name="username"
+              value={form.username}
+              onChange={handleChange}
+              placeholder="@username"
+              className="input"
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="password"
+              className="input"
+              required
+            />
+          </div>
+          <div className="text-error text-left text-sm">{ formError }</div>
+
+          <button type="submit" className="btn">
+            Login
+            { isLoading && (<span className="loading loading-spinner loading-xs"></span> )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
