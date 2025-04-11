@@ -3,28 +3,24 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Markdown from 'react-markdown';
+import { useAuth } from '../context/AuthContext';
 
 export default function Dashboard() {
+  const { token } = useAuth();
   const [latestEntries, setLatestEntrie] = useState([]);
   const [loadingLatestEntries, setLoadingLatestEntries] = useState(false);
 
   const fetchLatestEntries = async () => {
     setLoadingLatestEntries(true);
 
-    try {
-      const token = localStorage.getItem('token');
-      
+    try {   
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/entries/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       });
 
-      console.log(`response:`);
-      console.log(response.data);
-
       setLatestEntrie(response.data);
-
       setLoadingLatestEntries(false);
     } catch (err) {
       console.log(err);

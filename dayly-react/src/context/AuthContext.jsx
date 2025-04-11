@@ -15,9 +15,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  const login = (jwt) => {
-    localStorage.setItem('token', jwt);
-    setToken(jwt);
+  const login = (token) => {
+    localStorage.setItem('token', token);
+    setToken(token);
   };
 
   const logout = () => {
