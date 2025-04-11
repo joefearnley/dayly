@@ -2,3 +2,7 @@
 @plugin "daisyui" {
     themes: corporate --default;
 }
+
+.latest-entries .latest-entry .body-wrapper p {
+    @apply pb-4;
+}
