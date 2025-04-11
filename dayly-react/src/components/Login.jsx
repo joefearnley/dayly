@@ -61,11 +61,12 @@ export default function Login() {
             />
           </div>
           <div className="text-error text-left text-sm">{ formError }</div>
-
-          <button type="submit" className="btn">
-            Login
-            { isLoading && (<span className="loading loading-spinner loading-xs"></span> )}
-          </button>
+          <div>
+            <button type="submit" className="btn btn-secondary w-full">
+              Login
+              {isLoading && (<span className="loading loading-spinner loading-xs"></span>)}
+            </button>
+          </div>
         </form>
       </div>
     </div>

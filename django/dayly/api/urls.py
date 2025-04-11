@@ -10,6 +10,7 @@ router.register(r'entries', EntryViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('token/', authtoken_views.obtain_auth_token, name='api-token-auth'),
+    path('users/account/', authtoken_views.obtain_auth_token, name='api-token-auth'),
 ]

@@ -1,15 +1,35 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
+  const { user } = useAuth();
+
   return (
-    <nav className="bg-white shadow-md p-4 flex justify-between items-center">
-      <div className="text-xl font-bold">MyApp</div>
-      <div className="space-x-4">
-        <Link to="/" className="text-blue-600 hover:underline">Home</Link>
-        <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
-        <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
-        <Link to="/dashboard" className="text-blue-600 hover:underline">Dashboard</Link>
+    <div className="navbar bg-base-100 shadow-sm">
+      <div className="flex-1">
+        <a href="/" className="btn btn-ghost text-xl">Dayly</a>
       </div>
-    </nav>
+      <div className="flex-none">
+        {user ? (
+          <ul className="menu menu-horizontal px-1">
+            <li><Link to="/dashboard">Dashboard</Link></li>
+            <li>
+              <details>
+                <summary>Account</summary>
+                <ul className="bg-base-100 rounded-t-none p-2">
+                  <li><Link to="/account/settings">Settings</Link></li>
+                  <li><Link to="/logout">Logout</Link></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        ) : (
+          <ul className="menu menu-horizontal px-1">
+            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/register">Register</Link></li>
+          </ul>
+        )}
+      </div>
+    </div>
   );
 }

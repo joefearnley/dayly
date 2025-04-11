@@ -26,14 +26,14 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const fetchUserProfile = async (jwt) => {
+  const fetchUserProfile = async (token) => {
     try {
-      const res = await axios.get('http://localhost:8000/api/profile/', {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/current/`, {
         headers: {
-          Authorization: `Bearer ${jwt}`,
+          Authorization: `Token ${token}`,
         },
       });
-      setUser(res.data);
+      setUser(response.data);
     } catch (err) {
       console.error('Failed to fetch user profile:', err);
     }

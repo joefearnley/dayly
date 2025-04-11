@@ -50,12 +50,12 @@ class EntriesListTest(EntriesBaseTest):
     def test_cannot_list_entries_without_authentication(self):
         response = self.client.get(self.entries_url)
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], 'Authentication credentials were not provided.')
         self.assertEqual(len(response.data), 1)
 
     def test_list_entries(self):
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.get(self.entries_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -75,7 +75,7 @@ class EntriesListTest(EntriesBaseTest):
 
         other_user_entries = self.create_entrys(self.other_user, 2)
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.get(self.entries_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -99,13 +99,13 @@ class ReadEntryTest(EntriesBaseTest):
         entry = self.entries[0]
         response = self.client.get(f'{self.entries_url}{entry.id}/')
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], 'Authentication credentials were not provided.')
         self.assertEqual(len(response.data), 1)
 
     def test_user_can_read_entry(self):
         entry = self.entries[0]
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.get(f'{self.entries_url}{entry.id}/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -128,7 +128,7 @@ class CreateEntryTest(EntriesBaseTest):
 
         response = self.client.post(self.entries_url, data=post_data)
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], 'Authentication credentials were not provided.')
         self.assertEqual(len(response.data), 1)
 
@@ -139,7 +139,7 @@ class CreateEntryTest(EntriesBaseTest):
             'slug': self.detault_slug,
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.post(self.entries_url, data=post_data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -155,7 +155,7 @@ class CreateEntryTest(EntriesBaseTest):
             'slug': self.detault_slug,
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.post(self.entries_url, data=post_data)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -168,7 +168,7 @@ class CreateEntryTest(EntriesBaseTest):
             'slug': self.detault_slug,
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.post(self.entries_url, data=post_data)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -181,7 +181,7 @@ class CreateEntryTest(EntriesBaseTest):
             'date_published': self.default_date,
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.post(self.entries_url, data=post_data)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -206,7 +206,7 @@ class UpdateEntryTest(EntriesBaseTest):
 
         response = self.client.put(f'{self.entries_url}{entry.id}/', data=post_data)
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], 'Authentication credentials were not provided.')
         self.assertEqual(len(response.data), 1)
 
@@ -218,7 +218,7 @@ class UpdateEntryTest(EntriesBaseTest):
             'slug': self.detault_slug,
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.put(f'{self.entries_url}{entry.id}/', data=post_data)
 
         updated_entry = Entry.objects.get(id=entry.id)
@@ -235,7 +235,7 @@ class UpdateEntryTest(EntriesBaseTest):
             'slug': self.detault_slug,
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.put(f'{self.entries_url}{entry.id}/', data=post_data)
 
         updated_entry = Entry.objects.get(id=entry.id)
@@ -251,7 +251,7 @@ class UpdateEntryTest(EntriesBaseTest):
             'slug': self.detault_slug,
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.put(f'{self.entries_url}{entry.id}/', data=post_data)
 
         updated_entry = Entry.objects.get(id=entry.id)
@@ -259,6 +259,7 @@ class UpdateEntryTest(EntriesBaseTest):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(updated_entry.body, entry.body)
         self.assertEqual(response.data['date_published'], ['This field is required.'])
+
 
 class DeleteEntryTest(EntriesBaseTest):
     def setUp(self):
@@ -271,20 +272,20 @@ class DeleteEntryTest(EntriesBaseTest):
         entry = self.entries[0]
         response = self.client.delete(f'{self.entries_url}{entry.id}/')
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], 'Authentication credentials were not provided.')
         self.assertEqual(len(response.data), 1)
 
     def test_user_can_delete_entry(self):
         entry = self.entries[0]
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.delete(f'{self.entries_url}{entry.id}/')
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Entry.objects.count(), 0)
 
     def test_user_cannot_delete_entry_that_does_not_exist(self):
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.delete(f'{self.entries_url}9999/')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -306,7 +307,7 @@ class DeleteEntryTest(EntriesBaseTest):
             user=other_user,
         )
 
-        self.client.force_authenticate(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.delete(f'{self.entries_url}{other_user_entry.id}/')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
