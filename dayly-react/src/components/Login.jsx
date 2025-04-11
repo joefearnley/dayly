@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
+  const { login } = useAuth();
   const [form, setForm] = useState({ username: '', password: '' });
   const [formError, setFormError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +23,7 @@ export default function Login() {
         password: form.password,
       });
 
-      localStorage.setItem('token', response.data.token);
+      login(response.data.token);
       setIsLoading(false);
       window.location.href = '/dashboard';
     } catch (err) {
